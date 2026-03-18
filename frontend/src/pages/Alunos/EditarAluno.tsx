@@ -63,7 +63,11 @@ export function EditarAluno() {
   }, [aluno, navigate]);
 
   if (alunoLoading) {
-    return <Loader />;
+    return (
+          <div className="flex items-center justify-center h-screen">
+            <Loader />
+          </div>
+        );
   }
 
   if (alunoError) {

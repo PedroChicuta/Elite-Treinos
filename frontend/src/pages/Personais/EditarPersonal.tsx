@@ -19,9 +19,12 @@ export function EditarPersonal() {
     personalError,
     getPersonal,
   } = useGetPersonalById();
-  const { updatePersonal, updatePersonalLoading, personal } = useUpdatePersonal();
+  const { updatePersonal, updatePersonalLoading, personal } =
+    useUpdatePersonal();
 
-  const [initialData, setInitialData] = useState<PersonalFormData | undefined>();
+  const [initialData, setInitialData] = useState<
+    PersonalFormData | undefined
+  >();
 
   useEffect(() => {
     if (id) {
@@ -64,7 +67,11 @@ export function EditarPersonal() {
   }, [personal, navigate]);
 
   if (personalLoading) {
-    return <Loader />;
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <Loader />
+      </div>
+    );
   }
 
   if (personalError) {
@@ -100,7 +107,9 @@ export function EditarPersonal() {
         <FormPersonal
           onSubmit={handleSubmit}
           initialData={initialData}
-          submitLabel={updatePersonalLoading ? "Salvando..." : "Atualizar Personal"}
+          submitLabel={
+            updatePersonalLoading ? "Salvando..." : "Atualizar Personal"
+          }
           isLoading={updatePersonalLoading}
         />
       )}

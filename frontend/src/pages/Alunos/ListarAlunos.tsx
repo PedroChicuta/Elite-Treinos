@@ -9,7 +9,12 @@ import { useListarAlunosPersonal } from "../../hooks/Personais/useListarAlunosPe
 import { useAuth } from "../../contexts/AuthContext";
 
 export function ListarAlunos() {
-  const {alunosPersonal, alunosPersonalError, alunosPersonalLoading, getAlunosPersonal} = useListarAlunosPersonal();
+  const {
+    alunosPersonal,
+    alunosPersonalError,
+    alunosPersonalLoading,
+    getAlunosPersonal,
+  } = useListarAlunosPersonal();
   const { usuario } = useAuth();
   const { deleteAlunoById, error, loading } = useDeleteAluno();
   const [openMenuId, setOpenMenuId] = useState<number | null>(null);
@@ -26,8 +31,8 @@ export function ListarAlunos() {
   };
 
   useEffect(() => {
-    if(usuario){
-      getAlunosPersonal(usuario.id_usuario);
+    if (usuario?.id_personal) {
+      getAlunosPersonal(usuario.id_personal.toString());
     }
   }, [usuario]);
 
@@ -36,7 +41,7 @@ export function ListarAlunos() {
       <div className="flex items-center justify-center h-screen">
         <Loader />
       </div>
-    )
+    );
   }
 
   if (alunosPersonalError) {
@@ -45,8 +50,8 @@ export function ListarAlunos() {
 
   const handleDelete = async (id_aluno: number) => {
     await deleteAlunoById(id_aluno.toString());
-    if(usuario){
-      getAlunosPersonal(usuario.id_usuario);
+    if (usuario?.id_personal) {
+      getAlunosPersonal(usuario.id_personal.toString());
     }
   };
 
@@ -65,7 +70,11 @@ export function ListarAlunos() {
           Adicionar Aluno
         </Link>
       </div>
-      {loading && <Loader />}
+      {loading && (
+        <div className="flex items-center justify-center h-screen">
+          <Loader />
+        </div>
+      )}
       {error && <p>{error}</p>}
       <DataTable
         columns={[
@@ -84,6 +93,7 @@ export function ListarAlunos() {
           {
             header: "Observação",
             accessor: "observacao",
+            render: (aluno) => aluno.observacao ?? "-",
           },
           {
             header: "Ações",

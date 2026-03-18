@@ -23,7 +23,7 @@ export function useCreateAluno() {
       const aluno: CreateAlunoRequest = {
         nome: alunoData.usuario.nome,
         email: alunoData.usuario.email,
-        id_personal: usuario?.id_usuario ?? null,
+        id_personal: usuario?.id_personal?.toString() ?? null,
         data_nascimento: alunoData.data_nascimento,
         observacao: alunoData.observacao,
         senha: alunoData.usuario.senha,

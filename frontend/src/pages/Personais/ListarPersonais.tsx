@@ -21,7 +21,7 @@ export function ListarPersonais() {
       <div className="flex items-center justify-center h-screen">
         <Loader />
       </div>
-    )
+    );
   }
 
   if (personalsError) {
@@ -48,7 +48,11 @@ export function ListarPersonais() {
           Adicionar Personal
         </Link>
       </div>
-      {loading && <Loader />}
+      {loading && (
+        <div className="flex items-center justify-center h-screen">
+          <Loader />
+        </div>
+      )}
       {error && <p>{error}</p>}
       <DataTable
         columns={[

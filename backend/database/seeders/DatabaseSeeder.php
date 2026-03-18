@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             SuperAdminSeeder::class,
             PersonalSeeder::class,
             AlunoSeeder::class,
+            TreinoExercicioSeeder::class,
         ]);
     }
 }

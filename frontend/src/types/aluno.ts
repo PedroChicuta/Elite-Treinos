@@ -1,4 +1,5 @@
 import type { Personal } from "./personal";
+import type { Treino } from "./treino";
 import type { Usuario } from "./usuario";
 
 export interface Aluno {
@@ -7,6 +8,7 @@ export interface Aluno {
   observacao: string | null;
   usuario: Usuario;
   personal?: Personal | null;
+  treinos?: Treino[];
   dth_criacao?: string;
   dth_atualizacao?: string;
 }

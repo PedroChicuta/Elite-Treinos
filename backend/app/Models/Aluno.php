@@ -30,6 +30,12 @@ class Aluno extends Model
         return $this->belongsTo(Personal::class, 'id_personal', 'id_personal');
     }
 
+    public function treinos()
+    {
+        return $this->belongsToMany(Treino::class, 'tb_aluno_treino', 'id_aluno', 'id_treino')
+            ->withTimestamps('dth_criacao', 'dth_atualizacao');
+    }
+
     protected function casts(): array
     {
         return [

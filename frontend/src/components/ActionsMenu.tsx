@@ -19,6 +19,7 @@ export function ActionsMenu({
   const editLink =
     type === "aluno" ? `/alunos/editar/${id}` : `/personais/editar/${id}`;
   const personalStudentsLink = `/personais/${id}/alunos`;
+  const alunoTreinosLink = `/alunos/${id}/treinos`;
 
   return (
     <div className="relative">
@@ -39,6 +40,17 @@ export function ActionsMenu({
                   className="block px-4 py-2 hover:bg-white"
                 >
                   Listar alunos
+                </Link>
+              </li>
+            )}
+            {type === "aluno" && (
+              <li>
+                <Link
+                  to={alunoTreinosLink}
+                  onClick={onToggle}
+                  className="block px-4 py-2 hover:bg-white"
+                >
+                  Vincular exercicios
                 </Link>
               </li>
             )}

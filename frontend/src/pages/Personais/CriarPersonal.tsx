@@ -9,7 +9,8 @@ import type { Personal } from "../../types/personal";
 
 export function CriarPersonal() {
   const navigate = useNavigate();
-  const { createPersonal, createPersonalLoading, personal } = useCreatePersonal();
+  const { createPersonal, createPersonalLoading, personal } =
+    useCreatePersonal();
 
   const handleSubmit = (data: PersonalFormData) => {
     const personalData: Omit<Personal, "id_personal"> = {
@@ -34,7 +35,9 @@ export function CriarPersonal() {
   return (
     <div className="w-full">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold text-gray-800">Criar Novo Personal</h1>
+        <h1 className="text-2xl font-bold text-gray-800">
+          Criar Novo Personal
+        </h1>
         <Link
           to="/personais"
           className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-lg transition"

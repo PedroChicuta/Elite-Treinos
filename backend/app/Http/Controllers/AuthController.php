@@ -64,9 +64,13 @@ class AuthController extends Controller{
     {
         $user = $request->user();
 
-        $isSuperAdmin = SuperAdmin::where('id_usuario', $user->id_usuario)->exists();
-        $isPersonal = Personal::where('id_usuario', $user->id_usuario)->exists();
-        $isAluno = Aluno::where('id_usuario', $user->id_usuario)->exists();
+        $aluno = Aluno::where('id_usuario', $user->id_usuario)->first();
+        $personal = Personal::where('id_usuario', $user->id_usuario)->first();
+        $superAdmin = SuperAdmin::where('id_usuario', $user->id_usuario)->first();
+
+        $isSuperAdmin = (bool) $superAdmin;
+        $isPersonal = (bool) $personal;
+        $isAluno = (bool) $aluno;
 
         $tipoUsuario = $isSuperAdmin
             ? 'super_admin'
@@ -76,6 +80,9 @@ class AuthController extends Controller{
 
         return response()->json([
             'id_usuario' => $user->id_usuario,
+            'id_aluno' => $aluno?->id_aluno,
+            'id_personal' => $personal?->id_personal,
+            'id_super_admin' => $superAdmin?->id_super_admin,
             'nome' => $user->nome,
             'email' => $user->email,
             'tipo_usuario' => $tipoUsuario,

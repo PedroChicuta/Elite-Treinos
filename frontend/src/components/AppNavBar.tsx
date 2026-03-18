@@ -30,17 +30,20 @@ export function AppNavBar() {
 
   return (
     <ul className="flex flex-col text-black">
-      {navItems.map((item, index) => (
-        item.showCondition && (
-        <li
-          key={index}
-          className="flex w-full cursor-pointer p-4 hover:bg-gray-200"
-          onClick={() => navigate(item.page)}
-        >
-          {item.icon}
-          <span className="px-3">{item.name}</span>
-        </li>
-      )))};
+      {navItems.map(
+        (item, index) =>
+          item.showCondition && (
+            <li
+              key={index}
+              className="flex w-full cursor-pointer p-4 hover:bg-gray-200"
+              onClick={() => navigate(item.page)}
+            >
+              {item.icon}
+              <span className="px-3">{item.name}</span>
+            </li>
+          ),
+      )}
+      ;
     </ul>
   );
 }
