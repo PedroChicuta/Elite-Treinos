@@ -8,17 +8,22 @@ export function AppNavBar() {
   const navItems: navItemType[] = [
     {
       name: "Home",
-      page: '/home',
+      page: "/home",
       icon: <House />,
-      showCondition: true
+      showCondition: true,
     },
     {
       name: "Alunos",
-      page: '/alunos',
+      page: "/alunos",
       icon: <User />,
-      showCondition: true
+      showCondition: true,
     },
-    
+    {
+      name: "Personais",
+      page: "/personais",
+      icon: <User />,
+      showCondition: true,
+    },
   ];
 
   return (

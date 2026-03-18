@@ -25,15 +25,15 @@ export function PrivateLayout() {
       {usuario && (
         <>
           <nav className="min-w-64 flex flex-col justify-between h-screen shadow-[6px_0_10px_-6px_rgba(0,0,0,0.2)]">
-        <div>
-          <Logo />
-          <AppNavBar />
-        </div>
-        <LogoutButton />
-      </nav>
+            <div>
+              <Logo />
+              <AppNavBar />
+            </div>
+            <LogoutButton />
+          </nav>
         </>
       )}
-      <div className="p-10">
+      <div className="p-10 w-full">
         <Outlet />
       </div>
     </div>

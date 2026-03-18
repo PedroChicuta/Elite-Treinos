@@ -4,6 +4,8 @@ use App\Http\Middleware\TokenFromCookie;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Auth\AuthenticationException;
+use Illuminate\Http\Request;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -16,4 +18,15 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->prepend(TokenFromCookie::class);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
+        $exceptions->render(function (Throwable $e, Request $request) {
+            if ($request->is('api/*')) {
+                $status = method_exists($e, 'getStatusCode')
+                    ? $e->getStatusCode()
+                    : 500;
+
+                return response()->json([
+                    'message' => $e->getMessage() ?: 'Erro interno do servidor.',
+                ], $status);
+            }
+        });
     })->create();
