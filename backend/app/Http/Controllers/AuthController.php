@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
+use App\Models\Aluno;
+use App\Models\Personal;
+use App\Models\SuperAdmin;
 use Auth;
 use Illuminate\Http\Request;
 
@@ -55,5 +58,30 @@ class AuthController extends Controller{
             false,
             'Strict'
         );
+    }
+
+    public function me(Request $request)
+    {
+        $user = $request->user();
+
+        $isSuperAdmin = SuperAdmin::where('id_usuario', $user->id_usuario)->exists();
+        $isPersonal = Personal::where('id_usuario', $user->id_usuario)->exists();
+        $isAluno = Aluno::where('id_usuario', $user->id_usuario)->exists();
+
+        $tipoUsuario = $isSuperAdmin
+            ? 'super_admin'
+            : ($isPersonal
+                ? 'personal'
+                : ($isAluno ? 'aluno' : null));
+
+        return response()->json([
+            'id_usuario' => $user->id_usuario,
+            'nome' => $user->nome,
+            'email' => $user->email,
+            'tipo_usuario' => $tipoUsuario,
+            'is_super_admin' => $isSuperAdmin,
+            'is_personal' => $isPersonal,
+            'is_aluno' => $isAluno,
+        ]);
     }
 }

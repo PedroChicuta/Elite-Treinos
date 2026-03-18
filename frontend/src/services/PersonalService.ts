@@ -3,6 +3,7 @@ import type {
   CreatePersonalRequest,
   UpdatePersonalRequest,
 } from "../types/personal";
+import type { Aluno } from "../types/aluno";
 import { api } from "./api";
 
 export async function getAllPersonals(): Promise<Personal[]> {
@@ -32,4 +33,14 @@ export async function updatePersonal(
 
 export async function deletePersonal(id: string): Promise<void> {
   await api.delete(`/trainers/${id}`);
+}
+
+export async function getAlunosByPersonalId(id: string): Promise<Aluno[]> {
+  const response = await api.get(`/trainers/${id}/alunos`);
+
+  if (Array.isArray(response.data)) {
+    return response.data;
+  }
+
+  return response.data?.alunos ?? [];
 }

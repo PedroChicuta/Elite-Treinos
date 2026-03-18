@@ -15,7 +15,7 @@ export interface CreateAlunoRequest {
   nome: string;
   email: string;
   senha: string;
-  id_personal?: number | null;
+  id_personal?: string | null;
   data_nascimento: string | null;
   observacao?: string | null;
 }

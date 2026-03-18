@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Personal;
-use Illuminate\Http\Request;
 
 class ShowAlunosPersonalController extends Controller
 {
@@ -12,6 +11,16 @@ class ShowAlunosPersonalController extends Controller
      */
     public function __invoke(string $id)
     {
-        return Personal::with('alunos')->find($id);
+        $personal = Personal::find($id);
+
+        if (!$personal) {
+            return response()->json(['message' => 'Personal não encontrado'], 404);
+        }
+
+        $alunos = $personal->alunos()
+            ->with(['usuario', 'personal.usuario'])
+            ->get();
+
+        return response()->json($alunos);
     }
 }

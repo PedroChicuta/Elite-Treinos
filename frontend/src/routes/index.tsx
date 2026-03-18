@@ -10,6 +10,7 @@ import { EditarAluno } from "../pages/Alunos/EditarAluno";
 import { ListarPersonais } from "../pages/Personais/ListarPersonais";
 import { CriarPersonal } from "../pages/Personais/CriarPersonal";
 import { EditarPersonal } from "../pages/Personais/EditarPersonal";
+import { ListarAlunosPersonal } from "../pages/Personais/ListarAlunosPersonal";
 
 export function AppRoutes() {
   return (
@@ -29,6 +30,7 @@ export function AppRoutes() {
           <Route path="personais" element={<ListarPersonais />} />
           <Route path="personais/criar" element={<CriarPersonal />} />
           <Route path="personais/editar/:id" element={<EditarPersonal />} />
+          <Route path="personais/:id/alunos" element={<ListarAlunosPersonal />} />
         </Route>
 
         <Route path="*" element={<Navigate to="/" replace />} />

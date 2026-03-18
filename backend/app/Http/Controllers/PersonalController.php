@@ -25,7 +25,7 @@ class PersonalController extends Controller
     public function store(StorePersonalRequest $request)
     {
         $data = $request->validated();
-
+        
         return DB::transaction(function () use ($data) {
             $user = Usuario::create([
                 'nome' => $data['nome'],

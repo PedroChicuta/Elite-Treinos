@@ -1,7 +1,7 @@
 import { useState } from "react";
 import type { LoginRequest } from "../types/loginRequest";
 import axios from "axios";
-import { login } from "../services/authenticationService";
+import { login, me } from "../services/authenticationService";
 import { useAuth } from "../contexts/AuthContext";
 
 export function useLogin() {
@@ -12,8 +12,10 @@ export function useLogin() {
   async function submitLogin(loginRequestFields: LoginRequest): Promise<void> {
     try {
       setLoginLoading(true);
-      const usuario = await login(loginRequestFields);
+      setLoginError(null);
+      await login(loginRequestFields);
 
+      const usuario = await me();
       setUsuario(usuario);
     } catch (err) {
       let error: string | null = null;

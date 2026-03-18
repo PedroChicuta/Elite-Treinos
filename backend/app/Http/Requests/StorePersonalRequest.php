@@ -27,7 +27,7 @@ class StorePersonalRequest extends FormRequest
             'email' => 'required|email|unique:tb_usuario,email',
             'senha' => 'required|string|min:8',
             'telefone' => 'required|string|max:20',
-            'cref' => 'string|max:50',
+            'cref' => 'nullable|string|max:50',
         ];
     }
 

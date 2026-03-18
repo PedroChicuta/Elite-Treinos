@@ -2,12 +2,12 @@
 import { useState } from "react";
 import axios from "axios";
 import { me } from "../services/authenticationService";
-import type { Usuario } from "../types/usuario";
+import type { Me } from "../types/usuario";
 
 export function useMe() {
   const [meLoading, setMeLoading] = useState(true);
   const [meError, setMeError] = useState<string | null>(null);
-  const [usuario, setUsuario] = useState<Usuario | null>(null);
+  const [usuario, setUsuario] = useState<Me | null>(null);
 
   async function fetchMe(): Promise<void> {
     try {

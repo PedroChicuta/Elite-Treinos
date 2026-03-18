@@ -3,11 +3,13 @@ import type { Aluno } from "../../types/aluno";
 import { createAluno as createAlunoService } from "../../services/AlunoService";
 import axios from "axios";
 import { type CreateAlunoRequest } from "../../types/aluno";
+import { useAuth } from "../../contexts/AuthContext";
 
 export function useCreateAluno() {
   const [createAlunoLoading, setCreateAlunoLoading] = useState(false);
   const [createAlunoError, setCreateAlunoError] = useState<string | null>(null);
   const [aluno, setAluno] = useState<Aluno | null>(null);
+  const { usuario } = useAuth();
 
   async function createAluno(alunoData: Omit<Aluno, "id_aluno">) {
     try {
@@ -21,6 +23,7 @@ export function useCreateAluno() {
       const aluno: CreateAlunoRequest = {
         nome: alunoData.usuario.nome,
         email: alunoData.usuario.email,
+        id_personal: usuario?.id_usuario ?? null,
         data_nascimento: alunoData.data_nascimento,
         observacao: alunoData.observacao,
         senha: alunoData.usuario.senha,

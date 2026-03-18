@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { DataTable } from "../../components/DataTable";
-import { useListarAlunos } from "../../hooks/Alunos/useListarAlunos";
+// import { useListarAlunos } from "../../hooks/Alunos/useListarAlunos";
 import { ActionsMenu } from "../../components/ActionsMenu";
 import { useDeleteAluno } from "../../hooks/Alunos/useDeleteAluno";
 import Loader from "../../components/Loader";
+import { useListarAlunosPersonal } from "../../hooks/Personais/useListarAlunosPersonal";
+import { useAuth } from "../../contexts/AuthContext";
 
 export function ListarAlunos() {
-  const { alunos, getAlunos, alunosLoading, alunosError } = useListarAlunos();
+  const {alunosPersonal, alunosPersonalError, alunosPersonalLoading, getAlunosPersonal} = useListarAlunosPersonal();
+  const { usuario } = useAuth();
   const { deleteAlunoById, error, loading } = useDeleteAluno();
   const [openMenuId, setOpenMenuId] = useState<number | null>(null);
 
@@ -23,10 +26,12 @@ export function ListarAlunos() {
   };
 
   useEffect(() => {
-    getAlunos();
-  }, []);
+    if(usuario){
+      getAlunosPersonal(usuario.id_usuario);
+    }
+  }, [usuario]);
 
-  if (alunosLoading) {
+  if (alunosPersonalLoading) {
     return (
       <div className="flex items-center justify-center h-screen">
         <Loader />
@@ -34,13 +39,15 @@ export function ListarAlunos() {
     )
   }
 
-  if (alunosError) {
-    return <p>{alunosError}</p>;
+  if (alunosPersonalError) {
+    return <p>{alunosPersonalError}</p>;
   }
 
   const handleDelete = async (id_aluno: number) => {
     await deleteAlunoById(id_aluno.toString());
-    getAlunos();
+    if(usuario){
+      getAlunosPersonal(usuario.id_usuario);
+    }
   };
 
   const toggleMenu = (id: number) => {
@@ -91,7 +98,7 @@ export function ListarAlunos() {
             ),
           },
         ]}
-        data={alunos}
+        data={alunosPersonal}
       />
     </div>
   );

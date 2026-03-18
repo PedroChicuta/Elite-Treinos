@@ -1,5 +1,5 @@
 import type { LoginRequest } from "../types/loginRequest";
-import type { Usuario } from "../types/usuario";
+import type { Me, Usuario } from "../types/usuario";
 import { api } from "./api";
 
 export async function login(loginInputs: LoginRequest): Promise<Usuario> {
@@ -7,7 +7,7 @@ export async function login(loginInputs: LoginRequest): Promise<Usuario> {
   return response.data.user;
 }
 
-export async function me(): Promise<Usuario> {
+export async function me(): Promise<Me> {
   const response = await api.get("/me");
   return response.data;
 }

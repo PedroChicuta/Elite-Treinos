@@ -18,6 +18,7 @@ export function ActionsMenu({
 }: ActionsMenuProps) {
   const editLink =
     type === "aluno" ? `/alunos/editar/${id}` : `/personais/editar/${id}`;
+  const personalStudentsLink = `/personais/${id}/alunos`;
 
   return (
     <div className="relative">
@@ -30,6 +31,17 @@ export function ActionsMenu({
       {isOpen && (
         <div className="absolute z-10 bg-white divide-y divide-white rounded-lg shadow w-44">
           <ul className="py-2 text-sm text-gray-700">
+            {type === "personal" && (
+              <li>
+                <Link
+                  to={personalStudentsLink}
+                  onClick={onToggle}
+                  className="block px-4 py-2 hover:bg-white"
+                >
+                  Listar alunos
+                </Link>
+              </li>
+            )}
             <li>
               <Link
                 to={editLink}

@@ -1,12 +1,12 @@
 // src/contexts/AuthContext.tsx
 import { createContext, useContext, useEffect } from "react";
-import type { Usuario } from "../types/usuario";
+import type { Me } from "../types/usuario";
 import { useMe } from "../hooks/useMe";
 
 interface AuthContextType {
-  usuario: Usuario | null;
+  usuario: Me | null;
   loading: boolean;
-  setUsuario: (usuario: Usuario | null) => void;
+  setUsuario: (usuario: Me | null) => void;
 }
 
 const AuthContext = createContext<AuthContextType>({} as AuthContextType);
