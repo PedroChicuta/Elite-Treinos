@@ -50,14 +50,18 @@ export function TreinoCard({ treino }: TreinoCardProps) {
   return (
     <article className="w-full rounded-2xl shadow-md border border-yellow-500 bg-white overflow-hidden">
       <div className="bg-yellow-400 px-4 py-3 flex items-center justify-between">
-        <span className="text-white font-bold">Treino {treino.codigo_treino}</span>
+        <span className="text-white font-bold">
+          Treino {treino.codigo_treino}
+        </span>
         <span className="text-white text-sm font-semibold">
           {treino.exercicios?.length ?? 0} exercicio(s)
         </span>
       </div>
 
       <div className="p-4 space-y-3">
-        <h3 className="text-xl font-bold text-gray-900">{treino.nome_treino}</h3>
+        <h3 className="text-xl font-bold text-gray-900">
+          {treino.nome_treino}
+        </h3>
 
         <div>
           <p className="text-sm text-gray-500 font-semibold">Objetivo</p>
@@ -87,7 +91,9 @@ export function TreinoCard({ treino }: TreinoCardProps) {
           </div>
           <div>
             <p className="text-sm text-gray-500 font-semibold">Atualizado em</p>
-            <p className="text-gray-800">{formatarData(treino.dth_atualizacao)}</p>
+            <p className="text-gray-800">
+              {formatarData(treino.dth_atualizacao)}
+            </p>
           </div>
         </div>
       </div>

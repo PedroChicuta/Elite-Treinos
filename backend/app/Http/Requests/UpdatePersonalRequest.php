@@ -29,7 +29,7 @@ class UpdatePersonalRequest extends FormRequest
             'email'    => 'sometimes|email|unique:tb_usuario,email,' . $personal->id_usuario . ',id_usuario',
             'senha'    => 'sometimes|string|min:8',
             'telefone' => 'sometimes|string|max:20',
-            'cref'     => 'sometimes|string|max:20|unique:tb_personal,cref,' . $personal->id_personal . ',id_personal',
+            'cref'     => 'sometimes|nullable|string|max:20|unique:tb_personal,cref,' . $personal->id_personal . ',id_personal',
         ];
     }
 

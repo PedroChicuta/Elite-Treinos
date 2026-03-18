@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateAlunoRequest;
 use App\Models\Aluno;
 use App\Models\Usuario;
 use DB;
+use Gate;
 use Hash;
 
 class AlunoController extends Controller
@@ -19,6 +20,10 @@ class AlunoController extends Controller
     public function store(StoreAlunoRequest $request)
     {
         $data = $request->validated();
+
+        if (Gate::denies('is-personal')) {
+            abort(403, 'Ação não autorizada');
+        }
 
         return DB::transaction(function () use ($data) {
             $usuario = Usuario::create([
@@ -52,6 +57,10 @@ class AlunoController extends Controller
     public function update(UpdateAlunoRequest $request, string $id)
     {
         $aluno = Aluno::with('usuario')->find($id);
+
+        if (Gate::denies('is-personal')) {
+            abort(403, 'Ação não autorizada');
+        }
 
         if (!$aluno) {
             return response()->json(['message' => 'Aluno não encontrado'], 404);

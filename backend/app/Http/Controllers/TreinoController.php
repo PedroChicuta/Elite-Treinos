@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Aluno;
 use App\Models\Treino;
+use Gate;
 
 class TreinoController extends Controller
 {
@@ -30,6 +31,10 @@ class TreinoController extends Controller
     public function storePorAluno(string $id_aluno, string $id_treino)
     {
         $aluno = Aluno::find($id_aluno);
+        
+        if (Gate::denies('is-personal')) {
+            abort(403, 'Ação não autorizada');
+        }
 
         if (!$aluno) {
             return response()->json(['message' => 'Aluno não encontrado'], 404);
@@ -41,12 +46,19 @@ class TreinoController extends Controller
             return response()->json(['message' => 'Treino não encontrado'], 404);
         }
 
-        $vinculoExiste = $aluno->treinos()->where('tb_treino.id_treino', $id_treino)->exists();
+        $treinos = $aluno->treinos();
+        $vinculoExiste = $treinos->where('tb_treino.id_treino', $id_treino)->exists();
 
         if ($vinculoExiste) {
             return response()->json([
                 'message' => 'Treino já está vinculado a este aluno',
             ]);
+        }
+
+        if($treinos->count() >= 2) {
+            return response()->json([
+                'message' => 'O aluno já possui o número máximo de treinos vinculados (2)',
+            ], 400);
         }
 
         $aluno->treinos()->attach($treino->id_treino);
@@ -59,6 +71,10 @@ class TreinoController extends Controller
     public function destroyPorAluno(string $id_aluno, string $id_treino)
     {
         $aluno = Aluno::find($id_aluno);
+
+        if (Gate::denies('is-personal')) {
+            abort(403, 'Ação não autorizada');
+        }
 
         if (!$aluno) {
             return response()->json(['message' => 'Aluno não encontrado'], 404);

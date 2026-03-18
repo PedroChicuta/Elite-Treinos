@@ -7,6 +7,7 @@ use App\Http\Requests\UpdatePersonalRequest;
 use App\Models\Personal;
 use App\Models\Usuario;
 use DB;
+use Gate;
 use Hash;
 
 class PersonalController extends Controller
@@ -25,6 +26,10 @@ class PersonalController extends Controller
     public function store(StorePersonalRequest $request)
     {
         $data = $request->validated();
+        
+        if (Gate::denies('is-super-admin')) {
+            abort(403, 'Ação não autorizada');
+        }
         
         return DB::transaction(function () use ($data) {
             $user = Usuario::create([
@@ -63,6 +68,10 @@ class PersonalController extends Controller
     public function update(UpdatePersonalRequest $request, string $id)
     {
         $personal = Personal::with('usuario')->find($id);
+
+        if (Gate::denies('is-super-admin')) {
+            abort(403, 'Ação não autorizada');
+        }
 
         if (!$personal) {
             return response()->json(['message' => 'Personal não encontrado'], 404);

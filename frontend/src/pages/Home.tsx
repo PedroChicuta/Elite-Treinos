@@ -39,7 +39,9 @@ export function Home() {
     return (
       <div className="space-y-6">
         <div>
-          <h2 className="text-2xl font-bold">Bem-vindo ao Elite Treinos, {usuario.nome}!</h2>
+          <h2 className="text-2xl font-bold">
+            Bem-vindo ao Elite Treinos, {usuario.nome}!
+          </h2>
           <p>Seu aplicativo de gerenciamento de treinos e exercicios.</p>
         </div>
 

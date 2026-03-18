@@ -64,10 +64,10 @@ export function EditarAluno() {
 
   if (alunoLoading) {
     return (
-          <div className="flex items-center justify-center h-screen">
-            <Loader />
-          </div>
-        );
+      <div className="flex items-center justify-center h-screen">
+        <Loader />
+      </div>
+    );
   }
 
   if (alunoError) {

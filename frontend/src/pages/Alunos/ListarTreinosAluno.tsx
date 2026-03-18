@@ -13,14 +13,16 @@ export function ListarTreinosAluno() {
   const { id } = useParams<{ id: string }>();
   const [error, setError] = useState<string | null>(null);
 
-  const { getTreinos, treinos, treinosError, treinosLoading } = useListarTreinos();
+  const { getTreinos, treinos, treinosError, treinosLoading } =
+    useListarTreinos();
   const {
     getTreinosAluno,
     treinosAluno,
     treinosAlunoError,
     treinosAlunoLoading,
   } = useListarTreinosAluno();
-  const { vincularTreino, vinculoLoading, vinculoError } = useVincularTreinoAluno();
+  const { vincularTreino, vinculoLoading, vinculoError } =
+    useVincularTreinoAluno();
   const { desvincularTreino, desvinculoLoading, desvinculoError } =
     useDesvincularTreinoAluno();
 
@@ -107,7 +109,9 @@ export function ListarTreinosAluno() {
       </div>
 
       {vinculoError && <p className="mb-4 text-red-600">{vinculoError}</p>}
-      {desvinculoError && <p className="mb-4 text-red-600">{desvinculoError}</p>}
+      {desvinculoError && (
+        <p className="mb-4 text-red-600">{desvinculoError}</p>
+      )}
       {limiteVinculosAtingido && (
         <p className="mb-4 text-yellow-700">
           Limite de {MAX_TREINOS_VINCULADOS} treinos vinculados atingido. Para
@@ -139,7 +143,9 @@ export function ListarTreinosAluno() {
           {
             header: "Acoes",
             render: (treino) => {
-              const treinoVinculado = idsTreinosVinculados.has(treino.id_treino);
+              const treinoVinculado = idsTreinosVinculados.has(
+                treino.id_treino,
+              );
               const acaoLoading = vinculoLoading || desvinculoLoading;
               const bloquearNovoVinculo =
                 !treinoVinculado && limiteVinculosAtingido;
@@ -156,8 +162,8 @@ export function ListarTreinosAluno() {
                     bloquearNovoVinculo
                       ? "bg-gray-400 cursor-not-allowed"
                       : treinoVinculado
-                      ? "bg-red-500 hover:bg-red-600 cursor-pointer"
-                      : "bg-yellow-500 hover:bg-yellow-600 cursor-pointer"
+                        ? "bg-red-500 hover:bg-red-600 cursor-pointer"
+                        : "bg-yellow-500 hover:bg-yellow-600 cursor-pointer"
                   }`}
                 >
                   {treinoVinculado ? "Desvincular" : "Vincular"}
